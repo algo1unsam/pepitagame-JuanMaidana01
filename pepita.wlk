@@ -3,11 +3,13 @@ import wollok.game.*
 
 object pepita {
 
-	var property energia = 100
+	var property energia = 35
 	var property position = game.origin()
 
 	method image() {
-		return if (self.estaEnElNido()) "pepita-grande.png" else "pepita.png"
+		return if (self.estaEnElNido()) "pepita-grande.png" 
+		else if ( game.onSameCell(self.position(), extras.silvestre.position()) or self.energia()<=0 ) "pepita-gris.png" 
+		else "pepita.png"
 	}
 
 	method come(comida) {
@@ -19,8 +21,15 @@ object pepita {
 	}
 
 	method irA(nuevaPosicion) {
-		self.vola(position.distance(nuevaPosicion))
-		position = nuevaPosicion
+		if ( !self.estaCansada() ) {
+			self.vola(position.distance(nuevaPosicion))
+			position = nuevaPosicion
+			self.gastarEnergia()
+		}
+	}
+
+	method gastarEnergia() {
+		energia -= 2
 	}
 
 	method estaCansada() {
@@ -30,7 +39,6 @@ object pepita {
 	method estaEnElNido() {
 		return position == nido.position()
 	}
-	
 	
 	method estaEnElSuelo() {
 		return position.y() == 0 
