@@ -3,7 +3,7 @@ import wollok.game.*
 
 object pepita {
 
-	var property energia = 35
+	var property energia = 150
 	var property position = game.origin()
 
 	method image() {
@@ -26,6 +26,7 @@ object pepita {
 			position = nuevaPosicion
 			self.gastarEnergia()
 		}
+		else { game.stop() }//Termino el juego porque pepita se quedó sin energía.
 	}
 
 	method gastarEnergia() {
@@ -44,5 +45,8 @@ object pepita {
 		return position.y() == 0 
 	}
 
+	method caer() {
+		if (!self.estaEnElNido() and !self.estaEnElSuelo()) { position = position.down(1) }
+	}
 }
 

@@ -4,7 +4,6 @@ object manzana {
 
 	method image() = "manzana.png"
 
-	//1, 8
 	method position() = game.at(2, 2)
 
 	method energiaQueOtorga() = 40
