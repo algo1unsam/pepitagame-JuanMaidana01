@@ -3,12 +3,13 @@ import wollok.game.*
 
 object pepita {
 
-	var property energia = 150
+	var property energia = 100
+	var property enemigo = silvestre //Lo hago más objetoso, en cambio de querer cambiar el enemgio no modifico el método.
 	var property position = game.origin()
 
 	method image() {
 		return if (self.estaEnElNido()) "pepita-grande.png" 
-		else if ( game.onSameCell(self.position(), extras.silvestre.position()) or self.energia()<=0 ) "pepita-gris.png" 
+		else if ( game.onSameCell(self.position(), enemigo.position()) or self.energia()<=0 ) "pepita-gris.png" 
 		else "pepita.png"
 	}
 
@@ -24,13 +25,8 @@ object pepita {
 		if ( !self.estaCansada() ) {
 			self.vola(position.distance(nuevaPosicion))
 			position = nuevaPosicion
-			self.gastarEnergia()
 		}
-		else { game.stop() }//Termino el juego porque pepita se quedó sin energía.
-	}
-
-	method gastarEnergia() {
-		energia -= 2
+		else { game.stop() } //Termino el juego porque pepita se quedó sin energía.
 	}
 
 	method estaCansada() {
@@ -46,7 +42,10 @@ object pepita {
 	}
 
 	method caer() {
-		if (!self.estaEnElNido() and !self.estaEnElSuelo()) { position = position.down(1) }
+		if ( self.estaEnElAire() ) { position = position.down(1) }
+	}
+
+	method estaEnElAire() { // Para facilitar la lectura del código en caer().
+		return (!self.estaEnElNido() and !self.estaEnElSuelo())
 	}
 }
-

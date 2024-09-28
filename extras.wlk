@@ -9,7 +9,7 @@ object nido {
 
 	method teEncontro(ave) {
 		game.say(ave, "GANASTE! WIII")
-		game.schedule(2000, { game.stop() })
+		timer.esperar()
 	}
 }
 
@@ -19,4 +19,13 @@ object silvestre {
 	method image() = "silvestre.png"
 
 	method position() = game.at(pepita.position().x().max(3), 0)
+
+	method teEncontro(ave) {
+		game.say(ave, "¡PERDÍ!")
+		timer.esperar()
+	}
+}
+
+object timer { //Timer para no repetir código.
+	method esperar() {game.schedule(2000, { game.stop() }) }
 }

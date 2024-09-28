@@ -37,7 +37,7 @@ object tutorial3 {
 		game.addVisual(pepita)
 		config.configurarTeclas()
 		config.configurarColisiones()
-	//	config.configurarGravedad()
+		config.configurarGravedad()
 	}
 
 }
@@ -59,6 +59,6 @@ object config {
 	}
 
 	method configurarGravedad() {
-		game.onTick(1200, "pepitaGravedad", {pepita.caer()} ) //Pongo 1200 para testear más tranqui
+		game.onTick(1500, "pepitaGravedad", {pepita.caer()} ) //Pongo 1500 para testear más tranqui
 	}
 }
