@@ -8,7 +8,7 @@ object nido {
 	method image() = "nido.png"
 
 	method teEncontro(ave) {
-		game.say(ave, "GANASTE! WIII")
+		game.say(ave, "¡GANÉ!")
 		timer.esperar()
 	}
 }
@@ -27,5 +27,8 @@ object silvestre {
 }
 
 object timer { //Timer para no repetir código.
-	method esperar() {game.schedule(2000, { game.stop() }) }
+	method esperar() {
+		game.removeTickEvent("pepitaGravedad") 
+		game.schedule(2000, { game.stop() })
+		}
 }
